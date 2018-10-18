@@ -5,4 +5,4 @@ So while CQRS is a pattern that's good to have in the toolbox, beware that it is
 
 | Architerchure | solid & grasp |
 | ------------- | --------------| 
-| Web Api       | +/-           |       
+| REST Api      | +/-           |       
