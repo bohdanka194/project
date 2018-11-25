@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F8F132D7-F74B-497A-AB60-E890A7F62C2C}</ProjectGuid>
+    <ProjectGuid>{00908F6C-C472-40E5-B5F1-B7ABCBE0E8AA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BookStore.Infrastructure</RootNamespace>
-    <AssemblyName>BookStore.Infrastructure</AssemblyName>
+    <RootNamespace>BookStore.Core</RootNamespace>
+    <AssemblyName>BookStore.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,21 +49,56 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="AggregateRepository.cs" />
+    <Compile Include="AggregateRoot.cs" />
+    <Compile Include="Collections\Generic\Extensions.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="EventSourcing\EventStore.cs" />
+    <Compile Include="EventSourcing\IEventSourced.cs" />
+    <Compile Include="EventSourcing\IEventStore.cs" />
+    <Compile Include="EventSourcing\IVersionedEvent.cs" />
+    <Compile Include="EventSourcing\StoredEvent.cs" />
+    <Compile Include="EventSourcing\VersionedEvent.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="IAggregateRepository.cs" />
+    <Compile Include="IAggregateRoot.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="Messaging\Command.cs" />
+    <Compile Include="Messaging\Envelope.cs" />
+    <Compile Include="Messaging\Event.cs" />
+    <Compile Include="Messaging\Extensions.cs" />
+    <Compile Include="Messaging\Handling\CommandExecuter.cs" />
+    <Compile Include="Messaging\Handling\CommandHandlerRegistry.cs" />
+    <Compile Include="Messaging\Handling\EventDispatcher.cs" />
+    <Compile Include="Messaging\Handling\EventHandlerRegistry.cs" />
+    <Compile Include="Messaging\Handling\ICommandExecuter.cs" />
+    <Compile Include="Messaging\Handling\ICommandHandler.cs" />
+    <Compile Include="Messaging\Handling\ICommandHandlerRegistry.cs" />
+    <Compile Include="Messaging\Handling\IEventDispatcher.cs" />
+    <Compile Include="Messaging\Handling\IEventHandler.cs" />
+    <Compile Include="Messaging\Handling\IEventHandlerRegistry.cs" />
+    <Compile Include="Messaging\Handling\IRegistry.cs" />
+    <Compile Include="Messaging\ICommand.cs" />
+    <Compile Include="Messaging\ICommandBus.cs" />
+    <Compile Include="Messaging\IEvent.cs" />
+    <Compile Include="Messaging\IEventBus.cs" />
+    <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\CommandBus.cs" />
     <Compile Include="Messaging\EventBus.cs" />
     <Compile Include="Processors\CommandProcessor.cs" />
     <Compile Include="Processors\EventProcessor.cs" />
+    <Compile Include="Processors\IProcessor.cs" />
     <Compile Include="Processors\MessageProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadModels\Extensions.cs" />
+    <Compile Include="ReadModels\IDao.cs" />
+    <Compile Include="ReadModels\IReadModel.cs" />
+    <Compile Include="ReadModels\ReadModel.cs" />
     <Compile Include="ReadModels\ReadModelDao.cs" />
+    <Compile Include="Serialization\Extensions.cs" />
+    <Compile Include="Serialization\ITextSerializer.cs" />
+    <Compile Include="Serialization\JsonTextSerializer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BookStore.Core\BookStore.Core.csproj">
-      <Project>{00908F6C-C472-40E5-B5F1-B7ABCBE0E8AA}</Project>
-      <Name>BookStore.Core</Name>
-    </ProjectReference>
-  </ItemGroup> 
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
