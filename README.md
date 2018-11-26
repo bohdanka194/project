@@ -11,3 +11,6 @@ So while CQRS is a pattern that's good to have in the toolbox, beware that it is
 We use Azure Application Insights
 
 ![screen](https://github.com/bohdanka194/project/blob/master/misc/Screenshot_16.png)
+
+# Monitoring
+We use HealthChecks library for ASP.NET https://github.com/dotnet-architecture/HealthChecks
