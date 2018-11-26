@@ -10,4 +10,4 @@ So while CQRS is a pattern that's good to have in the toolbox, beware that it is
 # Telemetry
 We use Azure Application Insights
 
-![screen](https://github.com/bohdanka194/project/misc/Screenshot_16.png)
+![screen](https://github.com/bohdanka194/project/blob/master/misc/Screenshot_16.png)
