@@ -19,6 +19,7 @@ namespace books
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseSetting("https_port", "44345")
                 .UseStartup<Startup>();
     }
 }

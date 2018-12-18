@@ -1,7 +1,7 @@
 import { BookNav } from './../../catalog/models/book-nav';
 import { Book } from './../../catalog/models/book';
 import { Injectable } from '@angular/core';
-import { Http } from "@angular/http";
+import { Http, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishLast';
@@ -43,7 +43,7 @@ export class BooksService {
   }
 
   loadBooks(): Observable<Book[]> {
-    const bookApi = 'https://reactive-book-store.firebaseio.com/books.json';
+    const bookApi = 'https://localhost:44345/api/books'; 
     return this.http.get(bookApi).map(data => data.json())
                     .map(obj => Object.values(obj));
 

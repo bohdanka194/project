@@ -14,7 +14,7 @@ namespace books
         public T3 item3 { get; set; }
     }
 
-    [Route("api/[controller]")]
+    [Route("api/books")]
     [Produces("application/json")]
     [ApiController]
     public class BookController : ControllerBase

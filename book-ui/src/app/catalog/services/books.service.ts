@@ -7,8 +7,8 @@ import 'rxjs/add/operator/publishLast';
 
 import { Book } from "../models/book";
 
-const url = "https://api.mongolab.com/api/1/databases/sfbooks/collections/sfbooks/";
-const apiKey = "?apiKey=d3qvB8ldYFW2KSynHRediqLuBLP8JA8i";
+// const url = "https://api.mongolab.com/api/1/databases/sfbooks/collections/sfbooks/";
+// const apiKey = "?apiKey=d3qvB8ldYFW2KSynHRediqLuBLP8JA8i";
 
 
 @Injectable()
@@ -19,7 +19,10 @@ export class CatalogService {
 
   constructor(private http: Http) {
     // keep in cache the last result  
-    this.list$ = this.http.get(url + apiKey).map(response => response.json()).publishLast().refCount();
+    this.list$ = this.http.get("https://localhost:44345/api/books")
+                          .map(response => response.json())
+                          .publishLast()
+                          .refCount();
 
   }
 

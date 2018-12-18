@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'app-footer',
     template: `
-      <a href="https://angular.io/">Made by Angular & ngRx</a>
-      <div class="demo-label">Demo Only</div>
+      <a href="https://angular.io/">Made by Angular 4 & ngRx</a>
+      <div class="demo-label">Artsheva</div>
     `,
     styles: [
         `
