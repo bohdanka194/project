@@ -4,6 +4,25 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("cart")]
+    public class Item 
+    {
+        public Item()
+        {
+
+        }
+        public Item(Guid productId, Guid client, int quantity)
+        {
+            ProductId = productId;
+            Client = client;
+            Quantity = quantity;
+        }
+
+        public Guid ProductId { get; set; }
+        public Guid Client { get; set; }
+        public int Quantity { get; set; }
+    }
+
     [Table("books")]
     public class Book
     {

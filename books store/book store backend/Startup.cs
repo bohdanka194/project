@@ -22,7 +22,7 @@ namespace books
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<CurrentContext>(options => options.UseSqlServer(connection));
-
+            
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
@@ -35,6 +35,7 @@ namespace books
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
+
                     .AllowCredentials());
             });
         }
@@ -50,7 +51,7 @@ namespace books
             {
                 app.UseHsts();
             }
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseMvc();

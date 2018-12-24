@@ -9,6 +9,7 @@
 
     public class CurrentContext : DbContext
     {
+        public DbSet<Item> Cart { get; set; }
         public DbSet<Book> Books { get; set; }
 
         public CurrentContext(DbContextOptions<CurrentContext> options)

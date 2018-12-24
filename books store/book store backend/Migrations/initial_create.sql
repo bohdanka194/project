@@ -15,3 +15,8 @@ create table [dbo].[books] (
 	[Image] NVARCHAR (MAX) NOT NULL,
  	CONSTRAINT [PK_dbo.books] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+create table [dbo].[cart] (
+    [Id] uniqueidentifier NULL,
+	[ProductId] uniqueidentifier  NOT NULL
+);
