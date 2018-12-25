@@ -71,6 +71,11 @@ Responses:
 * 200 Ok `Your order is being processed.`
 * 405 Method not allowed
 
+## GET api/cart/history
+Responses:
+* 200 Ok
+* 405 Method not allowed
+
 # Telemetry
 We use Azure Application Insights
 
