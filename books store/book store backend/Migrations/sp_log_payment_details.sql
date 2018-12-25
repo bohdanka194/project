@@ -1,4 +1,4 @@
-﻿create procedure log_payment_details @Client uniqueidentifier
+﻿CREATE procedure log_payment_details @Client uniqueidentifier
 as
 if EXISTS (select ProductId from cart where Client=@Client)
 	declare @now datetime; 

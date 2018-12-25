@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting.Internal;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace books
 {
@@ -20,13 +18,18 @@ namespace books
     [ApiController]
     public class BookController : ControllerBase
     {
+        static Guid sample_user = new Guid("04f85b4a-0984-46d9-a81b-af0790625aef");
+        private Guid client;
         private ICart cart;
-        private SqlServerRepo db;
+        private DbBooks db;
+        private readonly CurrentContext currentContext;
 
-        public BookController(CurrentContext currentContext, ICart cart)
+        public BookController(CurrentContext currentContext)
         {
-            db = new SqlServerRepo(currentContext);
-            cart = new DbCart(currentContext, Guid.NewGuid());
+            db = new DbBooks(currentContext);
+            cart = new DbCart(currentContext, sample_user);
+            client = sample_user;
+            this.currentContext = currentContext;
         }
 
         [HttpGet]
@@ -37,41 +40,63 @@ namespace books
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task RemoveBook(Guid id)
+        public async Task<ActionResult> RemoveBook(Guid id)
         {
+            if (client != sample_user)
+            {
+                return StatusCode(403);
+            }
             await db.Remove(id);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("/api/cart/")]
+        public async Task<ActionResult<List<Item>>> Contents()
+        {
+            return await cart.Contents();
+        }
+
+        [HttpGet]
+        [Route("/api/cart/history")]
+        public async Task<ActionResult<List<payment_log>>> Payments()
+        {
+            return await currentContext.Payments.AsNoTracking().ToListAsync();
         }
 
         [HttpPost]
-        [Route("/api/cart/{item}")]
-        public async Task AddToCart(Guid item, [FromBody] int quantity)
+        [Route("/api/cart/")]
+        public async Task<ActionResult> AddToCart(Guid item, int quantity)
         {
             await cart.Put(item, quantity);
+            return Ok();
         }
 
-        [HttpPost]
-        [Route("/api/cart/{item}")]
-        public async Task RemoveFromCart(Guid item)
+        [HttpDelete]
+        [Route("/api/cart/")]
+        public async Task<ActionResult> RemoveFromCart(Guid item)
         {
             await cart.Extract(item);
+            return Ok();
         }
 
         [HttpPost]
         [Route("/api/cart/order")]
-        public async Task<ActionResult> Checkout(Guid item, [FromBody] int quantity)
+        public async Task<ActionResult> Checkout()
         {
-            await Task.Delay(TimeSpan.FromSeconds(15));
             await cart.Submit();
             return Ok("Your order is being processed");
         }
 
-
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] Book book)
         {
+            if (client != sample_user)
+            {
+                return StatusCode(403);
+            }
             await db.Add(book);
             return Ok();
         }
-
     }
 }

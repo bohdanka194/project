@@ -35,7 +35,6 @@ namespace books
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-
                     .AllowCredentials());
             });
         }

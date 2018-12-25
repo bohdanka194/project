@@ -19,6 +19,7 @@
         }
 
         public Guid ProductId { get; set; }
+        [Key]
         public Guid Client { get; set; }
         public int Quantity { get; set; }
     }

@@ -1,14 +1,10 @@
 ﻿namespace books
 {
     using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     public class CurrentContext : DbContext
     {
+        public DbSet<payment_log> Payments { get; set; }
         public DbSet<Item> Cart { get; set; }
         public DbSet<Book> Books { get; set; }
 
