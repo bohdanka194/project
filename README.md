@@ -78,6 +78,25 @@ Responses:
 * 401 Not autorized
 * 405 Method not allowed
 
+# Security
+
+## POST api/auth/token
+Gets the JWT token, it will be valid 20 minutes. sha256 algorithm is used
+
+Responses: 
+* 200 Ok
+```javascript
+{
+    access_token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93
+                    cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicXdlcnR5IiwiaHR0cDovL3NjaGVtYXMub
+                    Wljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsIm5iZi
+                    I6MTQ4MTYzOTMxMSwiZXhwIjoxNDgxNjM5MzcxLCJpc3MiOiJNeUF1dGhTZXJ2ZXIiLCJhdWQiOiJ
+                    odHRwOi8vbG9jYWxob3N0OjUxODg0LyJ9.dQJF6pALUZW3wGBANy_tCwk5_NR0TVBwgnxRbblp5Ho",
+    username: "qwerty"
+}
+```
+* 400 `Invalid user name or password.`
+
 # Telemetry
 We use Azure Application Insights
 
