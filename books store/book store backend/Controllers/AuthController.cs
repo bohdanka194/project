@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace books
 {
-    [Route("api/auth")]
+    [Produces("application/json")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -21,7 +21,8 @@ namespace books
             new Person { Login="qwerty", Password="55555", }
         };
 
-        [HttpPost("/token")]
+        [HttpPost]
+        [Route("api/auth/token")]
         public async Task Token()
         {
             var username = Request.Form["username"];
@@ -60,7 +61,8 @@ namespace books
                 JsonConvert.SerializeObject(new
                 {
                     access_token = encodedJwt,
-                    username = identity.Name
+                    username = identity.Name,
+                    available_to = jwt.ValidTo
                 },
                 new JsonSerializerSettings { Formatting = Formatting.Indented })
             );

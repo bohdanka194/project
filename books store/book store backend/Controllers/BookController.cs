@@ -52,6 +52,7 @@ namespace books
         }
 
         [HttpGet]
+        [Authorize]
         [Route("/api/cart/")]
         public async Task<ActionResult<List<Item>>> Contents()
         {
@@ -59,6 +60,7 @@ namespace books
         }
 
         [HttpGet]
+        [Authorize]
         [Route("/api/cart/history")]
         public async Task<ActionResult<List<payment_log>>> Payments()
         {
@@ -66,6 +68,7 @@ namespace books
         }
 
         [HttpPost]
+        [Authorize]
         [Route("/api/cart/")]
         public async Task<ActionResult> AddToCart(Guid item, int quantity)
         {
@@ -74,6 +77,7 @@ namespace books
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("/api/cart/")]
         public async Task<ActionResult> RemoveFromCart(Guid item)
         {
@@ -82,6 +86,7 @@ namespace books
         }
 
         [HttpPost]
+        [Authorize]
         [Route("/api/cart/order")]
         public async Task<ActionResult> Checkout()
         {
@@ -95,7 +100,7 @@ namespace books
             if (client != sample_user)
             {
                 return StatusCode(403);
-            }
+            } 
             await db.Add(book);
             return Ok();
         }
