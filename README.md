@@ -24,6 +24,51 @@ Request body:
 }
 ```
 Responses:
+..* 200 Ok
+..* 400 Bad request
+..* 403 Forbidden
+
+## DELETE api/books/{id}
+Responses: 
+..* 200 Ok
+..* 400 Bad request
+..* 404 Not found
+..* 403 Forbidden
+
+## GET api/cart/ 
+Gets the user's cart contents.
+Responses
+..* 200 Ok
+..* 401 Not authorized
+
+## POST api/cart/ 
+Gets the user's cart contents.
+
+Request body:
+```javascript
+{
+ item: String,
+ quantity: integer
+}
+```
+Responses
+..* 200 Ok
+..* 400 Bad request
+..* 401 Not authorized
+
+## DELETE api/cart/{id} 
+
+Responses
+..* 200 Ok
+..* 400 Bad request
+..* 404 Not found
+..* 401 Not authorized
+
+## POST api/cart/order
+Commits payment
+Responses:
+..* 200 Ok `Your order is being processed.`
+..* 405 Method not allowed
 
 # Telemetry
 We use Azure Application Insights
