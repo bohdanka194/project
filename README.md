@@ -66,6 +66,7 @@ Responses
 
 ## POST api/cart/order
 Commits payment
+
 Responses:
 * 200 Ok `Your order is being processed.`
 * 405 Method not allowed
