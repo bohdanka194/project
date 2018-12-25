@@ -72,8 +72,10 @@ Responses:
 * 405 Method not allowed
 
 ## GET api/cart/history
+Gets the payment history
 Responses:
 * 200 Ok
+* 401 Not autorized
 * 405 Method not allowed
 
 # Telemetry
