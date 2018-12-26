@@ -4,7 +4,32 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/3496a4e9-decf-4d00-961f-739dd4a974cb/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/book store backend</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/3496a4e9-decf-4d00-961f-739dd4a974cb/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/book store backend</ApplicationInsightsAnnotationResourceId>
+    <UserSecretsId>c5f1ca58-e58d-4245-9252-a2f910f3c7a5</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Migrations\create.sql" />
+    <None Remove="Migrations\sp_log_payment_details.sql" />
+    <None Remove="Migrations\sp_update_cart.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Migrations\sql\create.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Migrations\sp\sp_log_payment_details.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Migrations\sp\sp_update_cart.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />

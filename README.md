@@ -3,6 +3,9 @@
 | Architerchure | solid & grasp | Project type | Storage     | 
 | ------------- | --------------| ------------ | ----------- |
 | REST Api + SPA| +/-           | Books store  | SQL Server  |
+
+* [Functional specs](https://github.com/bohdanka194/project/blob/master/misc/Screenshot_9.png)
+
 # Api endpoints
 
 ## GET api/books 
