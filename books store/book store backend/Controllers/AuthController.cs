@@ -37,8 +37,7 @@ namespace books
             }
 
             var now = DateTime.UtcNow;
-
-            // создаем JWT-токен
+            
             var jwt = new JwtSecurityToken(
                          AuthOptions.ISSUER,
                          AuthOptions.AUDIENCE,
@@ -53,8 +52,7 @@ namespace books
                          );
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-
-            // сериализация ответа
+            
             Response.ContentType = "application/json";
 
             await Response.WriteAsync(
@@ -83,8 +81,7 @@ namespace books
                     ClaimsIdentity.DefaultRoleClaimType);
                 return claimsIdentity;
             }
-
-            // если пользователя не найдено
+            
             return null;
         }
     }
