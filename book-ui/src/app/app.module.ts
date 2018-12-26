@@ -2,6 +2,7 @@ import { CoreEffects } from './core/effects/core.effects';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CustomRouterStateSerializer } from './shared/utils/router-utils';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -31,12 +32,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // App related imports 
 import { reducers, metaReducers } from "./core/reducers";
 
+import { BooksService } from "./core/services/books.service";
+import { CartService } from "./core/services/cart.service";
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     CatalogModule,
@@ -64,6 +69,8 @@ import { reducers, metaReducers } from "./core/reducers";
     MomentModule
   ],
   providers: [
+    BooksService,
+    CartService,
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
     {provide: LOCALE_ID, useValue: 'fr-FR'}
    

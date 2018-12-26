@@ -1,7 +1,7 @@
 import { AppValidators } from './../../../shared/validators/app-validators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
+import { CartService } from './../../../core/services/cart.service';
 import * as cartActions from './../../actions/cart.actions';
 import * as fromOrder from './../../reducers/order';
 
@@ -22,7 +22,7 @@ export class OrderFormComponent implements OnInit {
   @Output() formSubmitted:EventEmitter<any> = new EventEmitter();
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private cart: CartService) { }
 
   ngOnInit() {
     // we can also add async validators, array of async validator just after the array of sync validator
@@ -84,6 +84,7 @@ export class OrderFormComponent implements OnInit {
   submitForm() {
     if (this.form.valid) {
       this.formSubmitted.emit(this.form.value);
+      this.cart.checkout();
     }
   }
 

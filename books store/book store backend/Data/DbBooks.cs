@@ -14,9 +14,9 @@
             this.dbContext = dbContext;
         }
 
-        public async Task Add(Book book)
+        public async Task Add(params Book[] book)
         {
-            dbContext.Books.Add(book);
+            dbContext.Books.AddRange(book);
             await dbContext.SaveChangesAsync();
         }
 

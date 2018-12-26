@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace books
 {
-    public class post_params<T1, T2, T3>
+    public class post_params<T1>
     {
-        public T1 item1 { get; set; }
-        public T2 item2 { get; set; }
-        public T3 item3 { get; set; }
+        public T1 Payload { get; set; } 
     }
 
     [Route("api/books")]
@@ -95,13 +93,13 @@ namespace books
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] Book book)
+        public async Task<ActionResult> Create([FromBody] post_params<Book[]> books)
         {
             if (client != sample_user)
             {
                 return StatusCode(403);
-            } 
-            await db.Add(book);
+            }
+            await db.Add(books.Payload);
             return Ok();
         }
     }

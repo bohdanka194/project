@@ -15,7 +15,7 @@ const apiKey = "?apiKey=d3qvB8ldYFW2KSynHRediqLuBLP8JA8i";
 export class BooksService {
 
   list$: Observable<Book[]>;
-
+  dictionary: Observable<Object>;
 
   constructor(private http: Http) {
     // keep in cache the last result  
@@ -28,6 +28,14 @@ export class BooksService {
     return this.list$;
   }
 
+  fetchDictionary(): Observable<Object> {
+    return this.list$.map(item => 
+      item.reduce(function(map, obj) {
+          map[obj.id] = obj;
+          return map;
+      }, {})
+    );
+  }
 
   getBook(bookId: string): Observable<BookNav> {
     // return this.http.get(url+bookId+apiKey).map(response => response.json());
