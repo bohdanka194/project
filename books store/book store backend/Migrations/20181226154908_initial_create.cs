@@ -18,8 +18,10 @@ namespace bookstorebackend.Migrations
             migrationBuilder.Sql(BuildCmd(files).ToString());
 
             string[] stored_procedures = Directory.GetFiles(baseAddress + "\\sp");
-
-            migrationBuilder.Sql(BuildCmd(stored_procedures).ToString());
+            foreach (var item in stored_procedures.Select(file => File.ReadAllText(file)))
+            {
+                migrationBuilder.Sql(item);
+            } 
         }
 
         private static StringBuilder BuildCmd(string[] files)

@@ -5,22 +5,22 @@ import { Http, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishLast';
-
-
-const url = "https://api.mongolab.com/api/1/databases/sfbooks/collections/sfbooks/";
-const apiKey = "?apiKey=d3qvB8ldYFW2KSynHRediqLuBLP8JA8i";
-
+ 
+const dev_base_address = "https://localhost:44345/api/";
+const deployment_base_address = "https://bookstoreartsheva.azurewebsites.net/api/";
 
 @Injectable()
-export class BooksService {
-
+export class BooksService { 
+  readonly base_address: String;
+  
   list$: Observable<Book[]>;
   dictionary: Observable<Object>;
 
   constructor(private http: Http) {
+    this.base_address =  deployment_base_address;
     // keep in cache the last result  
     this.list$ = this.loadBooks().publishLast().refCount();
-
+    
     
   }
 
@@ -29,6 +29,7 @@ export class BooksService {
   }
 
   fetchDictionary(): Observable<Object> {
+    
     return this.list$.map(item => 
       item.reduce(function(map, obj) {
           map[obj.id] = obj;
@@ -50,9 +51,9 @@ export class BooksService {
     });
   }
 
-  loadBooks(): Observable<Book[]> {
-    const bookApi = 'https://localhost:44345/api/books'; 
-    return this.http.get(bookApi).map(data => data.json())
+  loadBooks(): Observable<Book[]> { 
+    
+    return this.http.get(this.base_address + "books").map(data => data.json())
                     .map(obj => Object.values(obj));
 
   }

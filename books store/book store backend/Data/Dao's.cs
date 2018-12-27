@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("cart")]
-    public class Item 
+    public class Item
     {
         public Item()
         {
@@ -25,8 +25,27 @@
     }
 
     [Table("books")]
-    public class Book
-    {
+    public class Book : IBook
+    { 
+        public Book(IBook book, Guid id)
+        {
+            Id = id;
+            Author = book.Author;
+            Price = book.Price;
+            ISBN10 = book.ISBN10;
+            Description = book.Description;
+            Image = book.Image;
+            Rating = book.Rating;
+            Title = book.Title;
+            Votes = book.Votes;
+            Pages = book.Pages;
+        }
+
+        public Book()
+        {
+
+        }
+
         [Key]
         public Guid Id { get; set; }
         public string Author { get; set; }

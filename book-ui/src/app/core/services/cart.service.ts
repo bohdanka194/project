@@ -4,33 +4,48 @@ import { BooksService } from "./books.service";
 import { Injectable } from '@angular/core'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+const dev_base_address = "https://localhost:44345/api/";
+const deployment_base_address = "https://bookstoreartsheva.azurewebsites.net/api/";
+
 @Injectable()
 export class CartService {
 
   rows: CartRow[] = []; 
+  readonly base_address: String;
+  
   readonly httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicXdlcnR5IiwibmJmIjoxNTQ1NzcxODY3LCJleHAiOjE1NDU5NDQ2NjcsImlzcyI6Ik15QXV0aFNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE4ODQvIn0.zZ88x0P6EZ6-weKafY_cCQUFzBySd1BGaIqZyIAvqoM'
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicXdlcnR5IiwibmJmIjoxNTQ1OTQ1MzE2LCJleHAiOjE1NDYxMTgxMTYsImlzcyI6Ik15QXV0aFNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTE4ODQvIn0.4wW20Um_AB6gnloqGnTuTULJGvr6FbbRxLzVsQ09nbc'
     })
   };
   constructor(private http: HttpClient, private library: BooksService) {
     // keep in cache the last result 
-    console.log("MAKING A GET REQUEST T0 https://localhost:44345/api/cart"); 
-    this.http.get<Object[]>("https://localhost:44345/api/cart", this.httpOptions)
+    this.base_address = deployment_base_address;
+
+    console.log(`MAKING A GET REQUEST T0 ${this.base_address}cart`); 
+    this.rows = new Array<CartRow>();
+    this.http.get<Object[]>(this.base_address + "cart", this.httpOptions)
              .subscribe(response => {
+                console.log("RESPONSE: " + JSON.stringify(response));
                 library.fetchDictionary().subscribe(dict => {
+                    console.log("DICT: " + JSON.stringify(dict));
                     this.rows = response.map(
                       item => {
-                        console.log("ITEM: "+ JSON.stringify(item));
-                        return new CartRow(dict[item["productId"]], item["quantity"])
+                        
+                        console.log("BOOK ID: "+ item["productId"]);
+                        console.log("BOOK: "+ dict[item["productId"]]);
+                        const cart_row = new CartRow(dict[item["productId"]], item["quantity"]); 
+                        console.log("CART ROW: "+ JSON.stringify(cart_row));
+                        return cart_row;
                       }
                     )
                 }, error => {
                   console.log("Error happened while fetching books: " + error);
                 })
               }, error => {
-                console.log("Error happened while fetching cart contents: " + error);
+                console.log("Error happened while fetching cart contents: " + JSON.stringify(error));
                 this.rows = new Array<CartRow>();
               })
   }
@@ -44,28 +59,28 @@ export class CartService {
       this.rows.push(new CartRow(book, quantity));
     }
     console.log(
-      "MAKING POST REQUEST TO https://localhost:44345/api/cart?item="+book.id+"&quantity="+quantity
+      `MAKING POST REQUEST TO ${this.base_address}cart?item=${book.id}&quantity=${quantity}`
     );
-    this.http.post("https://localhost:44345/api/cart?item="+book.id+"&quantity="+quantity, null, this.httpOptions)
+    this.http.post(`${this.base_address}cart?item=${book.id}&quantity=${quantity}`, null, this.httpOptions)
              .subscribe(
-                response => console.log("Response: "+response),
+                response => console.log("Response: "+ JSON.stringify(response)),
                 error => console.log("Error: "+JSON.stringify(error))
              );  
   }
 
   remove(row: CartRow) {
     this.rows = this.rows.filter(r => r !== row); 
-    console.log("MAKING DELETE REQUEST TO https://localhost:44345/api/cart?item="+row.book.id);
-    this.http.delete("https://localhost:44345/api/cart?item="+row.book.id, this.httpOptions)
+    console.log(`MAKING DELETE REQUEST TO ${this.base_address}cart?item=${row.book.id}`);
+    this.http.delete(`${this.base_address}cart?item=${row.book.id}`, this.httpOptions)
              .subscribe(
-               response => console.log("Response: "+response),
+               response => console.log("Response: " + response),
                error => console.log("Error: "+JSON.stringify(error))
             );
   }
 
   checkout() {
-    console.log("MAKING POST REQUEST TO https://localhost:44345/api/cart/order");
-    this.http.post("https://localhost:44345/api/cart/order", null, this.httpOptions)
+    console.log(`MAKING POST REQUEST TO ${this.base_address}cart/order`);
+    this.http.post(`${this.base_address}cart/order`, null, this.httpOptions)
              .subscribe(
                 response => console.log("Response: "+response),
                 error => console.log("Error: "+JSON.stringify(error))

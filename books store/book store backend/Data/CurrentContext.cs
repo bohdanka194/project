@@ -14,6 +14,12 @@
             Database.EnsureCreated();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Item>().HasIndex(item => item.Client).IsUnique(false);
+            modelBuilder.Entity<payment_log>().HasIndex(item => item.Client).IsUnique(false);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging();

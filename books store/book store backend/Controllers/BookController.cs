@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace books
 {
@@ -99,7 +100,7 @@ namespace books
             {
                 return StatusCode(403);
             }
-            await db.Add(books.Payload);
+            await db.Add(books.Payload.Select(book => new Book(book, Guid.NewGuid())));
             return Ok();
         }
     }

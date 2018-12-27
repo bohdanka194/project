@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +15,9 @@
             this.dbContext = dbContext;
         }
 
-        public async Task Add(params Book[] book)
+        public async Task Add(IEnumerable<Book> books)
         {
-            dbContext.Books.AddRange(book);
+            dbContext.Books.AddRange(books);
             await dbContext.SaveChangesAsync();
         }
 
