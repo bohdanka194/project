@@ -5,13 +5,8 @@ image: Visual Studio 2017
 branches:
   only:
   - master
-init:
-  # Good practice, because Windows line endings are different from Unix/Linux ones
-  - cmd: git config --global core.autocrlf true
   #restore NuGet packegesbefore build
-before_build: 
-  # Display minimal restore text
-  - cmd: dotnet restore books store/book store backend.sln
+before_build: dotnet restore books store/book store backend.sln
 #package web application project for web deloy
 build:
   publish_wap: true
