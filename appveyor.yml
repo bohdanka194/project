@@ -1,11 +1,18 @@
+version: '1.0.{build}'
 configuration: Release
 platform: Any CPU
 image: Visual Studio 2017
-#restore NuGet packegesbefore build
+branches:
+  only:
+  - master
+init:
+  # Good practice, because Windows line endings are different from Unix/Linux ones
+  - cmd: git config --global core.autocrlf true
+  #restore NuGet packegesbefore build
 before_build: 
- nuget restore books store/book store backend.sln
- dotnet restore books store/book store backend.sln
- 
+  - cmd: dotnet --version
+  # Display minimal restore text
+  - cmd: dotnet restore --verbosity m 
 #package web application project for web deloy
 build:
   publish_wap: true
