@@ -1,7 +1,7 @@
 configuration: Release
-
+platform: Any CPU
 #restore NuGet packegesbefore build
-before_build: nuget restore "$env:appveyor_build_folder/books_store/book_store_backend.sln"
+before_build: nuget restore books_store/book_store_backend.sln
  
 #package web application project for web deloy
 build:
