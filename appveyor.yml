@@ -3,7 +3,6 @@ configuration: Release
 #restore NuGet packegesbefore build
 before_build: nuget restore
  
- #package web application project for web deloy
- build:
-  verbosity: minimal
+#package web application project for web deloy
+build:
   publish_wap: true
