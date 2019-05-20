@@ -6,5 +6,4 @@ before_build:
  
  # package web application project for web deloy
  build:
-  verbosity: minimal
   publish_wap: true
