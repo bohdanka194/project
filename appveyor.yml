@@ -1,7 +1,7 @@
 configuration: Release
 
 #restore NuGet packegesbefore build
-before_build: nuget restore
+before_build: nuget restore "$env:appveyor_build_folder\books_store\book_store_backend.sln"
  
 #package web application project for web deloy
 build:
