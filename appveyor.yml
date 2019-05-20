@@ -10,7 +10,6 @@ init:
   - cmd: git config --global core.autocrlf true
   #restore NuGet packegesbefore build
 before_build: 
-  - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore --verbosity m books store/book store backend.sln
 #package web application project for web deloy
