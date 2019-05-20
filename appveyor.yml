@@ -1,12 +1,11 @@
-version: '1.0.{build}'
 configuration: Release
 platform: Any CPU
 image: Visual Studio 2017
-branches:
-  only:
-  - master
-  #restore NuGet packegesbefore build
-before_build: dotnet restore books store/book store backend.sln
+#restore NuGet packegesbefore build
+before_build: 
+ nuget restore books store/book store backend.sln
+ dotnet restore books store/book store backend.sln
+ 
 #package web application project for web deloy
 build:
-  publish_wap: true
+publish_wap: true
