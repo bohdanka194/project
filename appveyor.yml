@@ -12,7 +12,7 @@ init:
 before_build: 
   - cmd: dotnet --version
   # Display minimal restore text
-  - cmd: dotnet restore --verbosity m 
+  - cmd: dotnet restore --verbosity m books store/book store backend.sln
 #package web application project for web deloy
 build:
   publish_wap: true
