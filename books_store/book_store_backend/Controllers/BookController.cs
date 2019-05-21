@@ -10,9 +10,9 @@ namespace books
 {
     public class RequestBody<T1>
     {
-        public RequestBody(T1 payload)
+        public RequestBody()
         {
-            Payload = payload;
+
         }
 
         public T1 Payload { get; set; }
@@ -28,12 +28,7 @@ namespace books
         private ICart cart;
         private DbBooks db;
         private readonly CurrentContext currentContext;
-
-        public BookController(CurrentContext currentContext) : this(currentContext, new DbCart(currentContext, sample_user))
-        {
-
-        }
-
+         
         public BookController(CurrentContext currentContext, ICart cart)
         {
             db = new DbBooks(currentContext);
@@ -108,13 +103,18 @@ namespace books
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] RequestBody<IBook[]> books)
+        [Consumes("application/json")]
+        public async Task<IActionResult> Create([FromBody] Book book)
         {
             if (client != sample_user)
             {
                 return StatusCode(403);
             }
-            await db.Add(books.Payload.Select(book => new Book(book, book.Id)));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await db.Add(new Book[] { book });
             return Ok();
         }
     }
