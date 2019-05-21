@@ -11,7 +11,7 @@ build:
 test_script:
   - cmd: dotnet restore ./books_store/book_store.tests/book_store.tests.csproj --verbosity m
   - cmd: cd books_store/book_store.tests
-  - cmd: dotnet xunit
+  - cmd: dotnet test
   - cmd: dotnet restore ./books_store/book_store.api_tests/book_store.api_integration_tests.csproj --verbosity m
   - cmd: cd books_store/book_store.api_tests
-  - cmd: dotnet xunit
+  - cmd: dotnet test
