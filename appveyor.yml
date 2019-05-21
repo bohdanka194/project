@@ -7,4 +7,3 @@ before_build:
 
 #package web application project for web deloy
 build:
- project: books_store\book_store_backend.sln
