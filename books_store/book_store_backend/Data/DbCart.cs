@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +20,8 @@
         public async Task Put(Guid item, int quantity = 1)
         {
             await dbContext.Database.ExecuteSqlCommandAsync(
-                "exec update_cart @user={0},@item={1},@quantity={2}",
-                client, item, quantity
+                       "exec update_cart @user={0},@item={1},@quantity={2}",
+                       client, item, quantity
             );
         }
 
