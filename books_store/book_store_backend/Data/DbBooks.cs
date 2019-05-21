@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
 
-    public class DbBooks 
+    public class DbBooks
     {
         private CurrentContext dbContext;
 
@@ -17,7 +17,7 @@
 
         public async Task Add(IEnumerable<Book> books)
         {
-            dbContext.Books.AddRange(books);
+            dbContext.Set<Book>().AddRange(books);
             await dbContext.SaveChangesAsync();
         }
 
@@ -28,18 +28,14 @@
 
         public async Task<Book> GetAsync(Guid aggregateId)
         {
-            return await dbContext.Books.FromSql(
-               "select Id,Title,Author,Price from dbo.books where Id={0}",
-               aggregateId
-           ).FirstAsync().ConfigureAwait(false);
+            return await dbContext.Books.FindAsync(aggregateId).ConfigureAwait(false);
         }
 
         public async Task Remove(Guid aggregateId)
         {
-            await dbContext.Database.ExecuteSqlCommandAsync(
-                "delete from dbo.books where Id={0}", 
-                aggregateId
-            );
+            Book entity = await GetAsync(aggregateId);
+            dbContext.Books.Remove(entity);
+            await dbContext.SaveChangesAsync();
         }
     }
 }
