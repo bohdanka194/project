@@ -1,9 +1,10 @@
 platform: Any CPU
 image: Visual Studio 2017
+
 #restore NuGet packegesbefore build
 before_build: 
- nuget restore books_store/book_store_backend.sln
  dotnet restore books_store/book_store_backend.sln
 
 #package web application project for web deloy
 build:
+project: books_store/book_store_backend.sln
