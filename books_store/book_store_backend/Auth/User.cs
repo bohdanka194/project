@@ -14,7 +14,7 @@ namespace books
         public const string ISSUER = "MyAuthServer"; 
         public const string AUDIENCE = "http://localhost:51884/"; 
         const string KEY = "mysupersecret_secretkey!123";   // 
-        public const int LIFETIME = 60*24*14; // in minutes
+        public const int LIFETIME = 2880; // in minutes
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
             return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));

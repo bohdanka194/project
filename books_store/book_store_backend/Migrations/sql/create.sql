@@ -1,6 +1,6 @@
-﻿create database artsheva_books
+﻿create database cqrs_read
 go 
-use artsheva_books
+use cqrs_read
 go
 create table [dbo].[books] (
     [Id] uniqueidentifier  NOT NULL,

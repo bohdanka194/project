@@ -8,14 +8,9 @@ using System.Linq;
 
 namespace books
 {
-    public class RequestBody<T1>
+    public class post_params<T1>
     {
-        public RequestBody(T1 payload)
-        {
-            Payload = payload;
-        }
-
-        public T1 Payload { get; set; }
+        public T1 Payload { get; set; } 
     }
 
     [Route("api/books")]
@@ -29,28 +24,23 @@ namespace books
         private DbBooks db;
         private readonly CurrentContext currentContext;
 
-        public BookController(CurrentContext currentContext) : this(currentContext, new DbCart(currentContext, sample_user))
-        {
-
-        }
-
-        public BookController(CurrentContext currentContext, ICart cart)
+        public BookController(CurrentContext currentContext)
         {
             db = new DbBooks(currentContext);
-            this.cart = cart;
+            cart = new DbCart(currentContext, sample_user);
             client = sample_user;
             this.currentContext = currentContext;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBooks()
+        public async Task<ActionResult<List<Book>>> GetBooks()
         {
-            return Ok(await db.FindAsync());
+            return await db.FindAsync();
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> RemoveBook(Guid id)
+        public async Task<ActionResult> RemoveBook(Guid id)
         {
             if (client != sample_user)
             {
@@ -63,28 +53,24 @@ namespace books
         [HttpGet]
         [Authorize]
         [Route("/api/cart/")]
-        public async Task<IActionResult> Contents()
+        public async Task<ActionResult<List<Item>>> Contents()
         {
-            return Ok(await cart.Contents());
+            return await cart.Contents();
         }
 
         [HttpGet]
         [Authorize]
         [Route("/api/cart/history")]
-        public async Task<IActionResult> Payments()
+        public async Task<ActionResult<List<payment_log>>> Payments()
         {
-            return Ok(await currentContext.Payments.AsNoTracking().ToListAsync());
+            return await currentContext.Payments.AsNoTracking().ToListAsync();
         }
 
         [HttpPost]
         [Authorize]
         [Route("/api/cart/")]
-        public async Task<IActionResult> AddToCart(Guid item, int quantity)
+        public async Task<ActionResult> AddToCart(Guid item, int quantity)
         {
-            if (quantity == 0)
-            {
-                return BadRequest();
-            }
             await cart.Put(item, quantity);
             return Ok();
         }
@@ -92,7 +78,7 @@ namespace books
         [HttpDelete]
         [Authorize]
         [Route("/api/cart/")]
-        public async Task<IActionResult> RemoveFromCart(Guid item)
+        public async Task<ActionResult> RemoveFromCart(Guid item)
         {
             await cart.Extract(item);
             return Ok();
@@ -101,20 +87,20 @@ namespace books
         [HttpPost]
         [Authorize]
         [Route("/api/cart/order")]
-        public async Task<IActionResult> Checkout()
+        public async Task<ActionResult> Checkout()
         {
             await cart.Submit();
             return Ok("Your order is being processed");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] RequestBody<IBook[]> books)
+        public async Task<ActionResult> Create([FromBody] post_params<Book[]> books)
         {
             if (client != sample_user)
             {
                 return StatusCode(403);
             }
-            await db.Add(books.Payload.Select(book => new Book(book, book.Id)));
+            await db.Add(books.Payload.Select(book => new Book(book, Guid.NewGuid())));
             return Ok();
         }
     }
