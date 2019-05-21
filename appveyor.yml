@@ -12,5 +12,5 @@ test_script:
   - cmd: dotnet restore ./books_store/book_store.tests/book_store.tests.csproj --verbosity m
   - cmd: cd books_store/book_store.tests
   - cmd: dotnet test
-  - cmd: cd ../books_store/book_store.api_tests
+  - cmd: cd ../book_store.api_tests
   - cmd: dotnet test
