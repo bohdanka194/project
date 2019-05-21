@@ -16,29 +16,25 @@
         [Fact]
         public async Task Should_have_books()
         {
-            BookController books = new BookController(new InMemoryDb());
+            BookController books = new BookController(new InMemoryDb(), new FakeCart());
             Assert.IsAssignableFrom<OkObjectResult>(await books.GetBooks());
         }
 
         [Fact]
         public async Task Should_create_book()
         {
-            BookController books = new BookController(new InMemoryDb());
+            BookController books = new BookController(new InMemoryDb(), new FakeCart());
             Assert.IsAssignableFrom<OkResult>(
-                await books.Create(new RequestBody<IBook[]>(
-                    new IBook[] { new FakeBook() }
-                )
-            ));
+                await books.Create(new FakeBook())
+            );
         }
 
         [Fact]
         public async Task Should_remove_book()
         {
-            BookController books = new BookController(new InMemoryDb());
+            BookController books = new BookController(new InMemoryDb(), new FakeCart());
             Guid guid = Guid.NewGuid();
-            await books.Create(new RequestBody<IBook[]>(
-                new IBook[] { new FakeBook(guid) }
-            ));
+            await books.Create(new FakeBook(guid));
             Assert.IsAssignableFrom<OkResult>(
                await books.RemoveBook(guid)
             );
@@ -52,9 +48,7 @@
         {
             BookController books = new BookController(new InMemoryDb(), new FakeCart());
             Guid guid = Guid.NewGuid();
-            await books.Create(new RequestBody<IBook[]>(
-                new IBook[] { new FakeBook(guid) }
-            ));
+            await books.Create(new FakeBook(guid));
             Assert.IsAssignableFrom(
                expectedResult,
                await books.AddToCart(guid, quantity)
@@ -66,9 +60,7 @@
         {
             BookController books = new BookController(new InMemoryDb(), new FakeCart());
             Guid guid = Guid.NewGuid();
-            await books.Create(new RequestBody<IBook[]>(
-                new IBook[] { new FakeBook(guid) }
-            ));
+            await books.Create(new FakeBook(guid));
             await books.AddToCart(guid, 1);
             Assert.IsAssignableFrom<OkResult>(
                await books.RemoveFromCart(guid)
