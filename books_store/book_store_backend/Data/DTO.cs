@@ -26,10 +26,10 @@
 
     [Table("books")]
     public class Book : IBook
-    { 
-        public Book(IBook book, Guid id)
+    {
+        public Book(IBook book)
         {
-            Id = id;
+            Id = book.Id;
             Author = book.Author;
             Price = book.Price;
             ISBN10 = book.ISBN10;
@@ -43,7 +43,7 @@
 
         public Book()
         {
-
+            Id = Guid.NewGuid();
         }
 
         [Key]

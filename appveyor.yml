@@ -1,11 +1,6 @@
 platform: Any CPU
 image: Visual Studio 2017
 
-branches:
-  only:
-    - develop
-  except:
-    - master
 #restore NuGet packegesbefore build
 before_build: 
  dotnet restore books_store/book_store_backend.sln
