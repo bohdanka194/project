@@ -17,4 +17,4 @@ test_script:
   - cmd: cd books_store/book_store.tests
   - cmd: dotnet test
   - cmd: cd ../book_store.api_tests
-- cmd: dotnet test
+  - cmd: dotnet test
