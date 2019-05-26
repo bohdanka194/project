@@ -28,7 +28,6 @@ namespace book_store.api_tests
 
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
-
                 // Create a scope to obtain a reference to the database contexts
                 using (var scope = sp.CreateScope())
                 {
