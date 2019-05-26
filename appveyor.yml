@@ -11,7 +11,7 @@ build:
 test_script:
 #Generate report for unit tests
 - OpenCover.Console.exe 
-    -register:user 
+    -register:administrator 
     -target:"dotnet.exe" 
     -targetargs:"test books_store\book_store.tests\book_store.tests.csproj /p:CollectCoverage=true"
     -filter:"+[book_store_backend*]* -[book_store.tests*]*"
@@ -20,7 +20,7 @@ test_script:
     
 #Generate report for integration tests
 - OpenCover.Console.exe 
-    -register:user 
+    -register:administrator 
     -target:"dotnet.exe" 
     -targetargs:"test books_store\book_store.api_tests\book_store.api_integration_tests.csproj test /p:CollectCoverage=true"
     -filter:"+[book_store_backend*]* -[book_store.api_integration_tests*]*"
