@@ -5,6 +5,11 @@
     <UserSecretsId>c5f1ca58-e58d-4245-9252-a2f910f3c7a5</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Migrations\create.sql" />
     <None Remove="Migrations\sp_log_payment_details.sql" />
