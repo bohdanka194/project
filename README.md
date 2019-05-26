@@ -1,5 +1,7 @@
 # Book store
- 
+
+[![codecov](https://codecov.io/gh/bohdanka194/project/branch/master/graph/badge.svg)](https://codecov.io/gh/bohdanka194/project)
+
 | Architerchure | solid & grasp | Project type | Storage     | 
 | ------------- | --------------| ------------ | ----------- |
 | REST Api + SPA| +/-           | Books store  | SQL Server  |
