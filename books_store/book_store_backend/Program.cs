@@ -11,8 +11,7 @@ namespace books
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights() 
+            WebHost.CreateDefaultBuilder(args) 
                 .UseStartup<Startup>();
     }
 }
