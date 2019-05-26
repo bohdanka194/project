@@ -6,13 +6,14 @@ before_build:
  - dotnet restore books_store/book_store_backend.sln
 
 build:
-
+  verbosity: normal
+  
 test_script:
 #Generate report for unit tests
 - OpenCover.Console.exe 
     -register:user 
     -target:"dotnet.exe" 
-    -targetargs:"test books_store\book_store.tests\book_store.tests.csproj"
+    -targetargs:"test books_store\book_store.tests\book_store.tests.csproj /p:CollectCoverage=true"
     -filter:"+[book_store_backend*]* -[book_store.tests*]*"
     -output:"coverage_unit.xml"
     -oldStyle
@@ -21,7 +22,7 @@ test_script:
 - OpenCover.Console.exe 
     -register:user 
     -target:"dotnet.exe" 
-    -targetargs:"test books_store\book_store.api_tests\book_store.api_integration_tests.csproj test"
+    -targetargs:"test books_store\book_store.api_tests\book_store.api_integration_tests.csproj test /p:CollectCoverage=true"
     -filter:"+[book_store_backend*]* -[book_store.api_integration_tests*]*"
     -output:"coverage_integration.xml"
     -oldStyle
