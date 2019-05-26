@@ -4,8 +4,7 @@ import { BooksService } from "./books.service";
 import { Injectable } from '@angular/core'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const dev_base_address = "https://localhost:44345/api/";
-const deployment_base_address = "https://bookstoreartsheva.azurewebsites.net/api/";
+const dev_base_address = "https://localhost:44345/api/"; 
 
 @Injectable()
 export class CartService {
@@ -22,23 +21,15 @@ export class CartService {
   };
   constructor(private http: HttpClient, private library: BooksService) {
     // keep in cache the last result 
-    this.base_address = deployment_base_address;
+    this.base_address = dev_base_address;
 
-    console.log(`MAKING A GET REQUEST T0 ${this.base_address}cart`); 
     this.rows = new Array<CartRow>();
     this.http.get<Object[]>(this.base_address + "cart", this.httpOptions)
              .subscribe(response => {
-                console.log("RESPONSE: " + JSON.stringify(response));
                 library.fetchDictionary().subscribe(dict => {
-                    console.log("DICT: " + JSON.stringify(dict));
                     this.rows = response.map(
                       item => {
-                        
-                        console.log("BOOK ID: "+ item["productId"]);
-                        console.log("BOOK: "+ dict[item["productId"]]);
-                        const cart_row = new CartRow(dict[item["productId"]], item["quantity"]); 
-                        console.log("CART ROW: "+ JSON.stringify(cart_row));
-                        return cart_row;
+                        return new CartRow(dict[item["productId"]], item["quantity"]);
                       }
                     )
                 }, error => {
@@ -58,9 +49,6 @@ export class CartService {
     else {
       this.rows.push(new CartRow(book, quantity));
     }
-    console.log(
-      `MAKING POST REQUEST TO ${this.base_address}cart?item=${book.id}&quantity=${quantity}`
-    );
     this.http.post(`${this.base_address}cart?item=${book.id}&quantity=${quantity}`, null, this.httpOptions)
              .subscribe(
                 response => console.log("Response: "+ JSON.stringify(response)),
@@ -69,8 +57,7 @@ export class CartService {
   }
 
   remove(row: CartRow) {
-    this.rows = this.rows.filter(r => r !== row); 
-    console.log(`MAKING DELETE REQUEST TO ${this.base_address}cart?item=${row.book.id}`);
+    this.rows = this.rows.filter(r => r !== row);  
     this.http.delete(`${this.base_address}cart?item=${row.book.id}`, this.httpOptions)
              .subscribe(
                response => console.log("Response: " + response),
@@ -79,7 +66,6 @@ export class CartService {
   }
 
   checkout() {
-    console.log(`MAKING POST REQUEST TO ${this.base_address}cart/order`);
     this.http.post(`${this.base_address}cart/order`, null, this.httpOptions)
              .subscribe(
                 response => console.log("Response: "+response),
