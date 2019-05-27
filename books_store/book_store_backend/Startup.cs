@@ -1,4 +1,4 @@
-﻿using books;
+﻿using Internal;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 
-namespace Internal
+namespace books
 {
     public class Startup
     {

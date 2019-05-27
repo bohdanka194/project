@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace books
+namespace Internal
 {
     public class ErrorDetails
     {

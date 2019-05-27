@@ -2,7 +2,6 @@
 {
     using books;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
     using Xunit;
 
     public class AuthControllerTest

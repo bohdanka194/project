@@ -1,4 +1,4 @@
-﻿namespace Internal
+﻿namespace books
 {
     using Microsoft.EntityFrameworkCore;
     using System;

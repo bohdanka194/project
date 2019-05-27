@@ -1,6 +1,5 @@
-﻿namespace Internal
+﻿namespace books
 {
-    using books;
     using Microsoft.EntityFrameworkCore;
 
     public class CurrentContext : DbContext

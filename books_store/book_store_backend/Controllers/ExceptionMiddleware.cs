@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace books
+namespace Internal
 {
     public class ExceptionMiddleware
     {
