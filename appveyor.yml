@@ -14,7 +14,7 @@ test_script:
     -register:user 
     -target:"dotnet.exe" 
     -targetargs:"test books_store\book_store.tests\book_store.tests.csproj /p:CollectCoverage=true"
-    -filter:"+[book_store_backend*]* -[book_store.tests*]*"
+    -filter:"+[book_store_backend]* -[book_store.tests]*"
     -output:"coverage_unit.xml"
     -oldStyle
     
@@ -23,7 +23,7 @@ test_script:
     -register:user 
     -target:"dotnet.exe" 
     -targetargs:"test books_store\book_store.api_tests\book_store.api_integration_tests.csproj /p:CollectCoverage=true"
-    -filter:"+[book_store_backend*]* -[book_store.api_integration_tests*]*"
+    -filter:"+[book_store_backend]* -[book_store.api_integration_tests]*"
     -output:"coverage_integration.xml"
     -oldStyle
     
