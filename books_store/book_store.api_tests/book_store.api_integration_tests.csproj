@@ -28,5 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\book_store_backend\book_store_backend.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Update="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
