@@ -68,7 +68,7 @@ export class CartService {
   checkout() {
     this.http.post(`${this.base_address}cart/order`, null, this.httpOptions)
              .subscribe(
-                response => console.log("Response: "+response),
+                response => alert("Success!"),
                 error => console.log("Error: "+JSON.stringify(error))
              );  
   }

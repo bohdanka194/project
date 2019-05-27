@@ -6,8 +6,7 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishLast';
  
-const dev_base_address = "https://localhost:44345/api/";
-const deployment_base_address = "https://bookstoreartsheva.azurewebsites.net/api/";
+const dev_base_address = "https://localhost:44345/api/"; 
 
 @Injectable()
 export class BooksService { 
@@ -17,7 +16,7 @@ export class BooksService {
   dictionary: Observable<Object>;
 
   constructor(private http: Http) {
-    this.base_address =  deployment_base_address;
+    this.base_address =  dev_base_address;
     // keep in cache the last result  
     this.list$ = this.loadBooks().publishLast().refCount();
     

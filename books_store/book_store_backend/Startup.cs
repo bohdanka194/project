@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using books;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 
-namespace books
+namespace Internal
 {
     public class Startup
     {
@@ -87,6 +88,8 @@ namespace books
                     var context = scope.ServiceProvider.GetService<CurrentContext>();
                      
                     context.Database.Migrate(); 
+
+
                 }
                 catch (Exception ex)
                 {

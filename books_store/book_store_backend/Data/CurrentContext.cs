@@ -1,5 +1,6 @@
-﻿namespace books
+﻿namespace Internal
 {
+    using books;
     using Microsoft.EntityFrameworkCore;
 
     public class CurrentContext : DbContext
@@ -23,6 +24,6 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging();
-        }
+        } 
     } 
 }

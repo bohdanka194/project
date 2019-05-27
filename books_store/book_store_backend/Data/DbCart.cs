@@ -1,8 +1,9 @@
-﻿namespace books
+﻿namespace Internal
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using books;
     using Microsoft.EntityFrameworkCore;
 
     public class DbCart : ICart

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
-namespace books
+
+namespace Internal
 {
     public class Program
     {
