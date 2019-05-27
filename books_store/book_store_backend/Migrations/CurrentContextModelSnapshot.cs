@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using books;
 
-namespace bookstorebackend.Migrations
+namespace Migrations
 {
     [DbContext(typeof(CurrentContext))]
     partial class CurrentContextModelSnapshot : ModelSnapshot

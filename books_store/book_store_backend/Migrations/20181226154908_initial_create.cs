@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace bookstorebackend.Migrations
+namespace Migrations
 {
     public partial class initial_create : Migration
     {

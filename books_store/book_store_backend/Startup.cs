@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace books
 {
@@ -67,13 +69,30 @@ namespace books
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         { 
             //app.UseDeveloperExceptionPage();
             app.UseMiddleware<ExceptionMiddleware>();
             if (env.IsProduction())
             {
                 app.UseHsts();
+            }
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+
+                try
+                {
+                    var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+                    var context = scope.ServiceProvider.GetService<CurrentContext>();
+                     
+                    context.Database.Migrate(); 
+                }
+                catch (Exception ex)
+                {
+                    var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occured while seeding the database.");
+                } 
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();

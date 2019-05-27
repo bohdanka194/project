@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using books;
 
-namespace bookstorebackend.Migrations
+namespace Migrations
 {
     [DbContext(typeof(CurrentContext))]
     [Migration("20181226154908_initial_create")]

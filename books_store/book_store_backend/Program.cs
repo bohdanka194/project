@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.Extensions.Logging;
 namespace books
 {
     public class Program
@@ -12,6 +12,16 @@ namespace books
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args) 
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                    // clear default logging providers
+                    logging.ClearProviders();
+
+                    // add built-in providers manually, as needed 
+                    logging.AddConsole();
+                    logging.AddDebug(); 
+                    logging.AddEventSourceLogger(); 
+                });
     }
 }
