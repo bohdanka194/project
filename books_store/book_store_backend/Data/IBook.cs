@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace books
+namespace books.Data
 {
     public interface IBook
     {

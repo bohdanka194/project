@@ -1,4 +1,4 @@
-﻿namespace books
+﻿namespace books.Data
 {
     using System;
     using System.ComponentModel.DataAnnotations;

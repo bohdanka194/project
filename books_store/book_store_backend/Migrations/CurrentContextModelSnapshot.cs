@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using books;
 using Internal;
+using books.Data;
 
 namespace Migrations
 {

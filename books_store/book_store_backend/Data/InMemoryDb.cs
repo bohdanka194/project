@@ -1,4 +1,4 @@
-﻿namespace books
+﻿namespace books.Data
 {
     using Microsoft.EntityFrameworkCore;
     using System;

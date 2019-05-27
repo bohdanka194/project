@@ -1,6 +1,7 @@
 ﻿namespace book_store.tests
 {
     using books;
+    using books.Data;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;
