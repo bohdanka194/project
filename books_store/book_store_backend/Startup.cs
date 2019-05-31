@@ -10,8 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using books;
 
-namespace books
+namespace Internal
 {
     public class Startup
     {

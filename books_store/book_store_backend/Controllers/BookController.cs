@@ -73,7 +73,7 @@ namespace books
 
         [HttpPost] 
         [Route("/api/cart/order")]
-        public async Task<IActionResult> Checkout()
+        public IActionResult Checkout()
         {
             //await cart.Submit();
             return Ok("Your order is being processed");

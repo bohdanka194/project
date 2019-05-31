@@ -69,10 +69,10 @@
         }
 
         [Fact]
-        public async Task Should_checkout()
+        public void Should_checkout()
         {
             BookController books = new BookController(new InMemoryDb(), new FakeCart());
-            Assert.IsAssignableFrom<OkObjectResult>(await books.Checkout());
+            Assert.IsAssignableFrom<OkObjectResult>(books.Checkout());
         }
 
         [Fact]
