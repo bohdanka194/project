@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
 
-    public class DbBooks
+    public class DbBooks : IBooks
     {
         private CurrentContext dbContext;
 
@@ -28,6 +28,11 @@
         public async Task<Book> GetAsync(Guid aggregateId)
         {
             return await dbContext.Books.FindAsync(aggregateId).ConfigureAwait(false);
+        }
+
+        public Task<BookLink> Links()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task Remove(Guid aggregateId)

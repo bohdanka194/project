@@ -11,9 +11,7 @@ namespace books
     [Produces("application/json")]
     [ApiController]
     public class BookController : ControllerBase
-    {
-        static Guid sample_user = new Guid("04f85b4a-0984-46d9-a81b-af0790625aef");
-        private Guid client;
+    { 
         private ICart cart;
         private DbBooks db;
         private readonly CurrentContext currentContext;
@@ -22,7 +20,6 @@ namespace books
         {
             db = new DbBooks(currentContext);
             this.cart = cart;
-            client = sample_user;
             this.currentContext = currentContext;
         }
 
@@ -36,32 +33,25 @@ namespace books
         [Route("{id}")]
         public async Task<IActionResult> RemoveBook(Guid id)
         {
-            if (client != sample_user)
-            {
-                return StatusCode(403);
-            }
             await db.Remove(id);
             return Ok();
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet] 
         [Route("/api/cart/")]
         public async Task<IActionResult> Contents()
         {
             return Ok(await cart.Contents());
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet] 
         [Route("/api/cart/history")]
         public async Task<IActionResult> Payments()
         {
             return Ok(await currentContext.Payments.AsNoTracking().ToListAsync());
         }
 
-        [HttpPost]
-        [Authorize]
+        [HttpPost] 
         [Route("/api/cart/")]
         public async Task<IActionResult> AddToCart(Guid item, int quantity)
         {
@@ -73,8 +63,7 @@ namespace books
             return Ok();
         }
 
-        [HttpDelete]
-        [Authorize]
+        [HttpDelete] 
         [Route("/api/cart/")]
         public async Task<IActionResult> RemoveFromCart(Guid item)
         {
@@ -82,12 +71,11 @@ namespace books
             return Ok();
         }
 
-        [HttpPost]
-        [Authorize]
+        [HttpPost] 
         [Route("/api/cart/order")]
         public async Task<IActionResult> Checkout()
         {
-            await cart.Submit();
+            //await cart.Submit();
             return Ok("Your order is being processed");
         }
 
@@ -95,10 +83,6 @@ namespace books
         [Consumes("application/json")]
         public async Task<IActionResult> Create([FromBody] Book book)
         {
-            if (client != sample_user)
-            {
-                return StatusCode(403);
-            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

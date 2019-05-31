@@ -7,11 +7,11 @@
 
     public class FakeCart : ICart
     {
-        private Dictionary<Guid, Item> dictionary = new Dictionary<Guid, Item>();
+        private Dictionary<Guid, CartItem> dictionary = new Dictionary<Guid, CartItem>();
 
-        public Task<List<Item>> Contents()
+        public Task<List<CartItem>> Contents()
         {
-            return Task.FromResult(new List<Item>(dictionary.Select(pair => pair.Value)));
+            return Task.FromResult(new List<CartItem>(dictionary.Select(pair => pair.Value)));
         }
 
         public Task Extract(Guid item)
@@ -22,7 +22,7 @@
 
         public Task Put(Guid item, int quantity)
         {
-            dictionary[item] = new Item(item, Guid.Empty, quantity);
+            dictionary[item] = new CartItem(item, Guid.Empty, quantity);
             return Task.CompletedTask;
         }
 

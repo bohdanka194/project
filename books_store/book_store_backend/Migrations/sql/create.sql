@@ -1,7 +1,5 @@
-﻿create database cqrs_read
-go 
-use cqrs_read
-go
+﻿go
+
 create table [dbo].[books] (
     [Id] uniqueidentifier  NOT NULL,
 	[Title] NVARCHAR (MAX) NOT NULL,
@@ -22,7 +20,7 @@ CREATE TABLE [dbo].[cart] (
 	[Quantity] INT NULL 
 );
 
-create table payment_history (
+create table [dbo].[payment_history] (
     [Client]  UNIQUEIDENTIFIER NOT NULL,
 	[Item] UNIQUEIDENTIFIER NOT NULL,
 	[_When] DATETIME NOT NULL,
@@ -34,3 +32,26 @@ create table payment_history (
 	ON DELETE CASCADE,
 );
 
+GO
+
+CREATE procedure dbo.log_payment_details @Client uniqueidentifier
+as
+if EXISTS (select ProductId from cart where Client=@Client)
+	declare @now datetime; 
+	set @now = GETDATE();
+	insert into payment_history (Client, Item, Quantity, _When)
+	   (select Client, ProductId, Quantity, @now from cart where cart.Client=@Client)
+	delete from cart where Client=@Client
+
+GO
+
+create procedure dbo.update_cart @user uniqueidentifier,
+							 @item uniqueidentifier,
+							 @quantity INT
+as 
+if EXISTS (select * from cart where Client = @user and ProductId = @item)
+	update cart set Quantity = Quantity + @quantity
+	where Client = @user and ProductId = @item;
+else 
+	insert into cart (Client, ProductId, Quantity) 
+	values(@user, @item, @quantity);

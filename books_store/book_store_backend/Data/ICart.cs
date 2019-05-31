@@ -8,7 +8,7 @@
     {
         Task Put(Guid item, int quantity);
         Task Extract(Guid item);
-        Task<List<Item>> Contents();
+        Task<List<CartItem>> Contents();
         Task Submit();
     }
 }

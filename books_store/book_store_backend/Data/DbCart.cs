@@ -1,8 +1,9 @@
-﻿namespace books.Data
+﻿namespace Internal
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using books.Data;
     using Microsoft.EntityFrameworkCore;
 
     public class DbCart : ICart
@@ -32,7 +33,7 @@
             );
         }
 
-        public async Task<List<Item>> Contents()
+        public async Task<List<CartItem>> Contents()
         {
             return await dbContext.Cart.AsNoTracking().ToListAsync();
         }
