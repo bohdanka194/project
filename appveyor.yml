@@ -42,3 +42,9 @@ after_build:
 artifacts:
 - path: books_store\book_store_backend\bin\Debug\netcoreapp2.2\book_store_backend.dll
   name: BookStore
+  
+deploy:
+  provider: BookStoreEnv
+  name: bookstoreproj
+  on:
+    branch: master
