@@ -44,7 +44,7 @@ artifacts:
   name: BookStore
   
 deploy:
-  provider: BookStoreEnv
-  name: bookstoreproj
+  provider: Environment
+  name: BookStoreEnv
   on:
     branch: master
