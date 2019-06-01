@@ -36,7 +36,5 @@ after_test:
       bash codecov.sh -f "coverage_unit.xml" -t "3aceb04d-c7be-4dc7-afc1-57807982f2cc"
       bash codecov.sh -f "coverage_integration.xml" -t "3aceb04d-c7be-4dc7-afc1-57807982f2cc"
 
-after_build:
-- cmd: dotnet publish book_store\book_store_backend\book_store_backend.csproj --output book_store\dist
 artifacts:
-- path: dist
+- path: book_store\book_store_backend\bin\Debug\netcoreapp2.2\book_store_backend.dll
