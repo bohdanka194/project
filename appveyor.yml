@@ -18,6 +18,7 @@ test_script:
     -filter:"+[book_store_backend]* -[book_store_backend]Migrations.* -[book_store_backend]Internal.* -[book_store.tests]* -[book_store.api_integration_tests]*"
     -output:"coverage_unit.xml"
     -oldStyle
+    
 #Generate report for integration tests
 - OpenCover.Console.exe 
     -register:user 
@@ -26,7 +27,7 @@ test_script:
     -filter:"+[book_store_backend]* -[book_store_backend]Migrations.* -[book_store_backend]Internal.* -[book_store.tests]* -[book_store.api_integration_tests]*"
     -output:"coverage_integration.xml"
     -oldStyle
-
+    
 # Upload test report to codecov.io
 after_test:
   - ps: |
@@ -41,7 +42,7 @@ after_build:
 artifacts:
 - path: books_store\book_store_backend\bin\Debug\netcoreapp2.2\book_store_backend.dll
   name: BookStore
- 
+  
 deploy:
   provider: Environment
   name: BookStoreEnv
