@@ -5,12 +5,13 @@ environment:
   nodejs_version: "lts"
 
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - yarn install --no-progress
+  - ps: Install-Product node $env:nodejs_version 
+  - npm install
   
 cache:
   - node_modules -> yarn.lock
   - "%LOCALAPPDATA%/Yarn"
+  
 #restore NuGet packegesbefore build
 before_build: 
  - dotnet restore books_store/book_store_backend.sln
@@ -38,9 +39,7 @@ test_script:
     -oldStyle
 #angular production build
 - cd book-ui
-- yarn ng -- build --prod --aot --base-href ./ --no-progress
-- yarn test -- --single-run --no-progress
-- yarn lint
+- ng -- build --prod --aot --base-href ./
 
 # Upload test report to codecov.io
 after_test:
