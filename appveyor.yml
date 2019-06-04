@@ -1,6 +1,16 @@
 platform: Any CPU
 image: Visual Studio 2017
 
+environment:
+  nodejs_version: "12"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - yarn install --no-progress
+  
+cache:
+  - node_modules -> yarn.lock
+  - "%LOCALAPPDATA%/Yarn"
 #restore NuGet packegesbefore build
 before_build: 
  - dotnet restore books_store/book_store_backend.sln
@@ -18,7 +28,6 @@ test_script:
     -filter:"+[book_store_backend]* -[book_store_backend]Migrations.* -[book_store_backend]Internal.* -[book_store.tests]* -[book_store.api_integration_tests]*"
     -output:"coverage_unit.xml"
     -oldStyle
-    
 #Generate report for integration tests
 - OpenCover.Console.exe 
     -register:user 
@@ -27,7 +36,11 @@ test_script:
     -filter:"+[book_store_backend]* -[book_store_backend]Migrations.* -[book_store_backend]Internal.* -[book_store.tests]* -[book_store.api_integration_tests]*"
     -output:"coverage_integration.xml"
     -oldStyle
-    
+#angular production build
+- yarn ng -- build --prod --aot --base-href ./ --no-progress
+- yarn test -- --single-run --no-progress
+- yarn lint
+
 # Upload test report to codecov.io
 after_test:
   - ps: |
@@ -42,6 +55,9 @@ after_build:
 artifacts:
 - path: books_store\book_store_backend\bin\Debug\netcoreapp2.2\book_store_backend.dll
   name: BookStore
+- path: book-ui\dist
+  name: BookUI
+  type: WebDeployPackage
   
 deploy:
   provider: Environment
