@@ -6,12 +6,12 @@
     using books.Data;
     using Microsoft.EntityFrameworkCore;
 
-    public class DbCart : ICart
+    public class DbDashboard : IDashboard
     {
         private CurrentContext dbContext;
         private Guid client;
 
-        public DbCart(CurrentContext dbContext, Guid client)
+        public DbDashboard(CurrentContext dbContext, Guid client)
         {
             this.dbContext = dbContext;
             this.client = client;
@@ -33,7 +33,7 @@
             );
         }
 
-        public async Task<List<CartItem>> Contents()
+        public async Task<List<DashoboardItem>> Contents()
         {
             return await dbContext.Cart.AsNoTracking().ToListAsync();
         }

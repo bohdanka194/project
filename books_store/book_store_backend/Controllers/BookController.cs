@@ -12,14 +12,14 @@ namespace books
     [ApiController]
     public class BookController : ControllerBase
     { 
-        private ICart cart;
+        private IDashboard dashboard;
         private DbBooks db;
         private readonly CurrentContext currentContext;
 
-        public BookController(CurrentContext currentContext, ICart cart)
+        public BookController(CurrentContext currentContext, IDashboard dashboard)
         {
             db = new DbBooks(currentContext);
-            this.cart = cart;
+            this.dashboard = dashboard;
             this.currentContext = currentContext;
         }
 
@@ -38,44 +38,44 @@ namespace books
         }
 
         [HttpGet] 
-        [Route("/api/cart/")]
+        [Route("/api/dashboard/")]
         public async Task<IActionResult> Contents()
         {
-            return Ok(await cart.Contents());
+            return Ok(await dashboard.Contents());
         }
 
         [HttpGet] 
-        [Route("/api/cart/history")]
+        [Route("/api/dashboard/history")]
         public async Task<IActionResult> Payments()
         {
             return Ok(await currentContext.Payments.AsNoTracking().ToListAsync());
         }
 
         [HttpPost] 
-        [Route("/api/cart/")]
-        public async Task<IActionResult> AddToCart(Guid item, int quantity)
+        [Route("/api/dashboard/")]
+        public async Task<IActionResult> AddToDashboard(Guid item, int quantity)
         {
             if (quantity == 0)
             {
                 return BadRequest();
             }
-            await cart.Put(item, quantity);
+            await dashboard.Put(item, quantity);
             return Ok();
         }
 
         [HttpDelete] 
-        [Route("/api/cart/")]
-        public async Task<IActionResult> RemoveFromCart(Guid item)
+        [Route("/api/dashboard/")]
+        public async Task<IActionResult> RemoveFromDashboard(Guid item)
         {
-            await cart.Extract(item);
+            await dashboard.Extract(item);
             return Ok();
         }
 
         [HttpPost] 
-        [Route("/api/cart/order")]
+        [Route("/api/dashboard/order")]
         public IActionResult Checkout()
         {
-            //await cart.Submit();
+            //await dashboard.Submit();
             return Ok("Your order is being processed");
         }
 

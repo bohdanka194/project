@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface ICart
+    public interface IDashboard
     {
         Task Put(Guid item, int quantity);
         Task Extract(Guid item);
-        Task<List<CartItem>> Contents();
+        Task<List<DashoboardItem>> Contents();
         Task Submit();
     }
 }

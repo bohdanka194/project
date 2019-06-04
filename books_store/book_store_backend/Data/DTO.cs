@@ -5,13 +5,13 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("cart")]
-    public class CartItem
+    public class DashoboardItem
     {
-        public CartItem()
+        public DashoboardItem()
         {
 
         }
-        public CartItem(Guid productId, Guid client, int quantity)
+        public DashoboardItem(Guid productId, Guid client, int quantity)
         {
             ProductId = productId;
             Client = client;

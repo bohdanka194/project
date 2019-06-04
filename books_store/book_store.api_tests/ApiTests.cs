@@ -82,17 +82,17 @@ namespace book_store.api_tests
         [Fact]
         public async Task CanCheckout()
         {
-            HttpResponseMessage httpResponse = await _client.Value.PostAsJsonAsync<string>("/api/cart/order", null);
+            HttpResponseMessage httpResponse = await _client.Value.PostAsJsonAsync<string>("/api/dashboard/order", null);
             await Log(httpResponse);
 
             httpResponse.EnsureSuccessStatusCode();
         }
 
         [Fact]
-        public async Task CanGetCartHistory()
+        public async Task CanGetFavouritesHistory()
         {
             // The endpoint or route of the controller action.
-            var httpResponse = await _client.Value.GetAsync("/api/cart/history");
+            var httpResponse = await _client.Value.GetAsync("/api/dashboard/history");
             await Log(httpResponse);
 
             // Must be successful.
@@ -105,7 +105,7 @@ namespace book_store.api_tests
         }
 
         [Fact]
-        public async Task CanGetCartContents()
+        public async Task CanGetDashboardContents()
         {
             // The endpoint or route of the controller action.
             HttpResponseMessage httpResponse;
@@ -117,12 +117,12 @@ namespace book_store.api_tests
             httpResponse.EnsureSuccessStatusCode();
 
             await _client.Value.PostAsJsonAsync<string>(
-                string.Format("/api/cart?item={0}&quantity={1}", value.Id, 5), null
+                string.Format("/api/dashboard?item={0}&quantity={1}", value.Id, 5), null
             );
             httpResponse.EnsureSuccessStatusCode();
 
             await Log(httpResponse);
-            httpResponse = await _client.Value.GetAsync("/api/cart");
+            httpResponse = await _client.Value.GetAsync("/api/dashboard");
 
             // Must be successful.
             httpResponse.EnsureSuccessStatusCode();

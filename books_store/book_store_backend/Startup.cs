@@ -55,8 +55,8 @@ namespace Internal
 
             services.AddDbContext<CurrentContext>(options => options.UseSqlServer(connection));
 
-            services.AddTransient<ICart, DbCart>(
-                serviceProv => new DbCart(serviceProv.GetService<CurrentContext>(), Guid.NewGuid())
+            services.AddTransient<IDashboard, DbDashboard>(
+                serviceProv => new DbDashboard(serviceProv.GetService<CurrentContext>(), Guid.NewGuid())
             );
 
             services.Configure<ApiBehaviorOptions>(options =>

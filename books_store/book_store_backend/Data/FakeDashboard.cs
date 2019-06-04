@@ -5,13 +5,13 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class FakeCart : ICart
+    public class FakeDashboard : IDashboard
     {
-        private Dictionary<Guid, CartItem> dictionary = new Dictionary<Guid, CartItem>();
+        private Dictionary<Guid, DashoboardItem> dictionary = new Dictionary<Guid, DashoboardItem>();
 
-        public Task<List<CartItem>> Contents()
+        public Task<List<DashoboardItem>> Contents()
         {
-            return Task.FromResult(new List<CartItem>(dictionary.Select(pair => pair.Value)));
+            return Task.FromResult(new List<DashoboardItem>(dictionary.Select(pair => pair.Value)));
         }
 
         public Task Extract(Guid item)
@@ -22,7 +22,7 @@
 
         public Task Put(Guid item, int quantity)
         {
-            dictionary[item] = new CartItem(item, Guid.Empty, quantity);
+            dictionary[item] = new DashoboardItem(item, Guid.Empty, quantity);
             return Task.CompletedTask;
         }
 

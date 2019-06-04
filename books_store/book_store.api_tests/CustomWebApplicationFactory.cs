@@ -26,7 +26,7 @@ namespace book_store.api_tests
                     options.UseInternalServiceProvider(serviceProvider);
                 });
 
-                services.AddTransient<ICart, FakeCart>();
+                services.AddTransient<IDashboard, FakeDashboard>();
 
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
