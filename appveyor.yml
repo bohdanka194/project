@@ -37,6 +37,7 @@ test_script:
     -output:"coverage_integration.xml"
     -oldStyle
 #angular production build
+- cd book-ui
 - yarn ng -- build --prod --aot --base-href ./ --no-progress
 - yarn test -- --single-run --no-progress
 - yarn lint
