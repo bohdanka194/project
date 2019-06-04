@@ -5,13 +5,10 @@ environment:
   nodejs_version: "lts"
 
 install:
+  - cd book-ui
   - ps: Install-Product node $env:nodejs_version 
   - npm install
-  
-cache:
-  - node_modules -> yarn.lock
-  - "%LOCALAPPDATA%/Yarn"
-  
+    
 #restore NuGet packegesbefore build
 before_build: 
  - dotnet restore books_store/book_store_backend.sln
